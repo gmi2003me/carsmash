@@ -1,0 +1,138 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #FFFFFF;
+    color: #000000;
+    margin: 0;
+    transition: background-color 0.5s linear;
+}
+
+h1 {
+    margin-top: 20px;
+    color: #FF0000;
+    text-shadow: 2px 2px #0000FF;
+}
+
+.intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 500px;
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 20px;
+    border: 3px solid #0000FF;
+    background-color: rgba(238, 238, 255, 0.9);
+    font-size: 0.8em;
+    line-height: 1.6;
+    z-index: 10;
+    color: #000000;
+}
+
+.intro h4 {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    color: #0000FF;
+}
+
+.intro ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.intro ul li {
+    margin-bottom: 5px;
+}
+
+.intro strong {
+    color: #FF0000;
+}
+
+#start-message {
+    margin-top: 15px;
+    font-size: 1.2em;
+    color: #FF0000;
+    animation: blink 1s infinite step-end;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.game-info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 10px;
+}
+
+.game-container {
+    position: relative;
+}
+
+#gameCanvas {
+    border: 3px solid #000000;
+    background-color: #FFFFFF;
+    box-shadow: none;
+}
+
+.health-bar-container {
+    width: 200px;
+    height: 20px;
+    border: 2px solid #000000;
+    background-color: #AAAAAA;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#health-bar {
+    width: 100%;
+    height: 100%;
+    background-color: #FF0000;
+    transition: width 0.2s linear;
+}
+
+#health-score {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 20px;
+    color: #FFFFFF;
+    font-size: 10px;
+    text-shadow: 1px 1px #000000;
+    white-space: nowrap;
+}
+
+#score-display {
+    font-size: 1.0em;
+    font-weight: normal;
+    color: #0000FF;
+}
+
+#gameOver {
+    margin-top: 20px;
+    font-size: 2em;
+    color: #FF0000;
+    text-shadow: 2px 2px #0000FF;
+}
+
+#nitro-indicator {
+    font-size: 0.8em; /* Match pixel style */
+    padding: 4px 8px;
+    border: 2px solid #AAAAAA;
+    color: #555555;
+    background-color: #CCCCCC; /* Default Gray */
+    white-space: nowrap;
+}
+
+#nitro-indicator.ready {
+    border-color: #00FF00;
+    color: #000000;
+    background-color: #00FF00; /* Green when ready */
+} 

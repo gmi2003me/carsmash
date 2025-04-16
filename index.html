@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Smash Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Car Smash</h1>
+
+    <div class="game-container">
+        <div class="intro">
+            <p>Drive your car and avoid the enemy cars trying to smash you!</p>
+            <h4>Instructions:</h4>
+            <ul>
+                <li><strong>Arrow Keys / Space/Cmd:</strong> Steer and move your car.</li>
+                <li><strong>N:</strong> Activate Nitro Boost (when ready).</li>
+                <li><strong>Wrench (🔧):</strong> Collect to repair 10 health points.</li>
+                <li><strong>Goal:</strong> Survive as long as possible! Score increases over time.</li>
+            </ul>
+            <p id="start-message">Press any key to start</p>
+        </div>
+        <div class="game-info">
+            <div class="health-bar-container">
+                <div id="health-bar"></div>
+                <span id="health-score">Health: 100</span>
+            </div>
+            <span id="score-display">Score: 0</span>
+            <div id="nitro-indicator">Nitro Ready</div>
+        </div>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+    <div id="gameOver" style="display: none; color: red; font-size: 2em; text-align: center; margin-top: 20px;">
+        Game Over!
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
