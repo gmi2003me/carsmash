@@ -6,6 +6,7 @@ const gameOverDisplay = document.getElementById('gameOver');
 const scoreDisplay = document.getElementById('score-display'); // Get score display element
 const nitroIndicator = document.getElementById('nitro-indicator'); // Get nitro indicator
 const introBox = document.querySelector('.intro'); // Get reference to intro box
+const startMessageElement = document.getElementById('start-message'); // Get start message element
 
 // Game Settings
 const PLAYER_START_HEALTH = 100;
@@ -309,40 +310,33 @@ document.addEventListener('keydown', (event) => {
     }
 
     if (!gameStarted) {
+        // Start the game for the first time
         gameStarted = true;
-        if (introBox) introBox.style.display = 'none'; // Hide intro box
+        if (introBox) introBox.style.display = 'none'; 
         
         const startTime = Date.now();
-        // Convert ms time to seconds for Web Audio API
         const audioStartTime = audioCtx ? audioCtx.currentTime : 0; 
         lastFrameTime = startTime; 
         lastEnemySpawnTime = startTime; 
         lastSpeedIncreaseTime = startTime;
         lastBgColorChangeTime = startTime; 
-        
-        startSoundtrack(audioStartTime + 0.1); // Start soundtrack slightly after game start
-
+        startSoundtrack(audioStartTime + 0.1); 
         requestAnimationFrame(gameLoop);
         console.log("Game started!");
         return; 
-    }
-
-    if (gameRunning) { 
-        const key = event.key.toLowerCase();
+    } else if (!gameRunning) {
+        // If game is over, restart the game
+        console.log("Restarting game...");
+        initGame(); // Re-initialize everything
+        // Game loop will start on next key press via the !gameStarted check above
+        // We set gameStarted = false in initGame()
+    } else { 
+        // Game is running, process normal input
+        const key = event.key.toLowerCase(); 
         keysPressed[key] = true;
-        // Nitro Activation
-        if (key === 'n') {
-            tryActivateNitro();
-        }
-        // Walk Mode Toggle
-        if (key === 'w') {
-            toggleWalkMode();
-        }
-        // Hitbox Toggle
-        if (key === 'h') {
-            showHitboxes = !showHitboxes;
-            console.log("Show Hitboxes:", showHitboxes);
-        }
+        if (key === 'n') tryActivateNitro();
+        if (key === 'w') toggleWalkMode();
+        if (key === 'h') { showHitboxes = !showHitboxes; }
     }
 });
 
@@ -1036,11 +1030,18 @@ function showGameOver() {
         gameOverDisplay.style.textShadow = '2px 2px #0000FF'; // Blue shadow
     }
     gameOverDisplay.style.display = 'block';
+
+    // Show the intro box again
+    if (introBox) {
+        // Update the start message for restarting
+        if (startMessageElement) startMessageElement.textContent = "Press any key to RESTART";
+        introBox.style.display = 'block';
+    }
     
     // Play appropriate sound only if game wasn't already won
     if (!gameWon) {
         playGameOverSound(); 
-    } // Win sound is played immediately in checkCollisions
+    } 
 }
 
 // --- Audio Functions ---
@@ -1410,6 +1411,13 @@ function initGame() {
     updateNitroIndicator(Date.now()); 
     initAudio();
     stopAllSounds();
+    
+    if (introBox) { 
+        // Set initial start message
+        if (startMessageElement) startMessageElement.textContent = "Press any key to start";
+        introBox.style.display = 'block';
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawArena();
     gameWon = false; // Reset win state
